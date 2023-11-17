@@ -15,7 +15,7 @@
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
 
-- [x] Tarefa 1 - inicar a engine
+- [ ] Tarefa 1 - inicar a engine
 
 ## 🤝 Colaboradores
 
