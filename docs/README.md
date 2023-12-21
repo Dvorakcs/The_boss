@@ -2,11 +2,11 @@
 
 
 # Mario_The-Boss
-![GitHub repo size](https://img.shields.io/github/repo-size/Dvorakcs/GameJam2024_The?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/Dvorakcs/GameJam2024_The?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/Dvorakcs/GameJam2024_The?style=for-the-badge)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/Dvorakcs/GameJam2024_The?style=for-the-badge)
-![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/Dvorakcs/GameJam2024_The?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/Dvorakcs/Mario_The_boss?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/Dvorakcs/Mario_The_boss?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/Dvorakcs/Mario_The_boss?style=for-the-badge)
+![Bitbucket open issues](https://img.shields.io/bitbucket/issues/Dvorakcs/Mario_The_boss?style=for-the-badge)
+![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/Dvorakcs/Mario_The_boss?style=for-the-badge)
 
 > Projeto simples: Jogo feito igual o Mario
 
