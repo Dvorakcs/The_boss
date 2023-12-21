@@ -1,15 +1,14 @@
 
 
 
-# GameJam2024_The-Boss
-# Game feito para Game jam 2024 - https://itch.io/jam/boss-rush-jam-2024
+# Mario_The-Boss
 ![GitHub repo size](https://img.shields.io/github/repo-size/Dvorakcs/GameJam2024_The?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/Dvorakcs/GameJam2024_The?style=for-the-badge)
 ![GitHub forks](https://img.shields.io/github/forks/Dvorakcs/GameJam2024_The?style=for-the-badge)
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/Dvorakcs/GameJam2024_The?style=for-the-badge)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/Dvorakcs/GameJam2024_The?style=for-the-badge)
 
-> Projeto simples: Jogo feito somente para enfrentar chefes
+> Projeto simples: Jogo feito igual o Mario
 
 ### Ajustes e melhorias
 
