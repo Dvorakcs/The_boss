@@ -3,27 +3,18 @@ window.onload = () => {
         scene: new Scene({
             maps: new Maps({
                 tiles: [new Tile({
-                    position:{x:50,y:50},
-                    width: 25,
-                    height:25
+                    position:{x:140,y:400},
+                    width: 32,
+                    height:32
                 }), 
-                new Tile({
-                    position:{x:50 + 25,y:50},
-                    width: 25,
-                    height:25
-                }), 
-                new Tile({
-                    position:{x:50 + 50,y:50},
-                    width: 25,
-                    height:25
-                }),
+              
             ]
             }),
             players: [
                 new GameObjects({
                  position:{x:50,y:50},
-                 width: 32,
-                 height:32
+                 width: 20,
+                 height:36
             })],
             controller: new Controller()
         })
