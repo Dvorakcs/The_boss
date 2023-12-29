@@ -35,13 +35,31 @@ class Player{
     }
 
     UPDATE(EventUpdate){
+    
+        if(EventUpdate.keySet.W.pressed && this.#Velocity.y === 0){
+            this.#Velocity.y = -10
+        }
+        if(EventUpdate.keySet.A.pressed){
+            this.#Velocity.x = -4
+        }
+        if(EventUpdate.keySet.D.pressed){
+            this.#Velocity.x = 4
+        }
+        if(!EventUpdate.keySet.D.pressed && !EventUpdate.keySet.A.pressed){
+            this.#Velocity.x = 0
+        }
         this.#Position.y += this.#Velocity.y
+        this.#Position.x += this.#Velocity.x
+
+        this.#Sides.bottom = this.#Position.y + this.#Height + this.#Velocity.y
+       
         if(this.#Sides.bottom + this.#Velocity.y < (64 * 9)){
             this.#Velocity.y += this.#Gravity
-            this.#Sides.bottom = this.#Position.y + this.#Height + this.#Velocity.y
         }else {
             this.#Velocity.y = 0
         }
+
+
        
     }
     

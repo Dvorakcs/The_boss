@@ -1,6 +1,7 @@
 class GameEngine{
     #canvas = null
     #ctx = null
+    #keyPad = null
     #player = null
     constructor(config){
         this.#canvas = config.canvas,
@@ -8,7 +9,7 @@ class GameEngine{
 
         this.#canvas.width = (64 * 16)/1
         this.#canvas.height = (64 * 9)/1
-
+        this.#keyPad = new Keypad()
         this.#player = new Player({
             position: {x:10,y:10},
             width: 50,
@@ -18,7 +19,9 @@ class GameEngine{
 
     
     UPDATE(EventUpdate){
-        this.#player.UPDATE(EventUpdate)
+        this.#player.UPDATE({
+            keySet:this.#keyPad.KEY
+        })
     }
     DRAW(EventDraw){
        
