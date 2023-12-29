@@ -3,6 +3,7 @@ class GameEngine{
     #ctx = null
     #keyPad = null
     #player = null
+    #background = null
     constructor(config){
         this.#canvas = config.canvas,
         this.#ctx = config.ctx
@@ -14,6 +15,10 @@ class GameEngine{
             position: {x:10,y:10},
             width: 50,
             height: 50
+        })
+        this.#background = new Sprite({
+            position:{x:0,y:0},
+            imageSrc:'/Game/src/Image/Level/backgroundLevel1.png'
         })
     }
 
@@ -28,6 +33,8 @@ class GameEngine{
         this.#ctx.clearRect(0,0,this.#canvas.width,this.#canvas.height) 
         this.#ctx.fillStyle = 'white'
         this.#ctx.fillRect(0,0,this.#canvas.width,this.#canvas.height)
+       
+        this.#background.DRAW(this.#ctx)
         this.#player.DRAW(this.#ctx)
     }
 }

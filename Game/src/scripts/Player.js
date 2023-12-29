@@ -16,11 +16,15 @@ class Player{
         right:this.#Position.x + this.#Width
     }
     #Gravity = 1
+    #Sprite = null
     constructor(config){
         this.#Position = config.position ?? {  x:0,y:0}
         this.#Width = config.width ?? 0
         this.#Height = config.height ?? 0
-        
+        this.#Sprite = new Sprite({
+            position:this.#Position,
+            imageSrc:'/Game/src/Image/king/idle.png'
+        })
        
     }
 
@@ -66,5 +70,6 @@ class Player{
     DRAW(EventDraw){
         EventDraw.fillStyle = 'red'
         EventDraw.fillRect(this.#Position.x,this.#Position.y,this.#Width,this.#Height)
+        this.#Sprite.DRAW(EventDraw)
     }
 }
