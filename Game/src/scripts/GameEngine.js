@@ -29,12 +29,15 @@ class GameEngine{
         })
     }
     DRAW(EventDraw){
-       
+      
         this.#ctx.clearRect(0,0,this.#canvas.width,this.#canvas.height) 
         this.#ctx.fillStyle = 'white'
         this.#ctx.fillRect(0,0,this.#canvas.width,this.#canvas.height)
-       
+      
         this.#background.DRAW(this.#ctx)
+        collisionBlocks.forEach((collisionBlocks) => {
+            collisionBlocks.DRAW(this.#ctx)
+        })
         this.#player.DRAW(this.#ctx)
     }
 }
