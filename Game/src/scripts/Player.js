@@ -17,6 +17,7 @@ class Player{
     }
     #Gravity = 1
     #Sprite = null
+    #CollisionBlocks = null
     constructor(config){
         this.#Position = config.position ?? {  x:0,y:0}
         this.#Width = config.width ?? 0
@@ -25,7 +26,7 @@ class Player{
             position:this.#Position,
             imageSrc:'/Game/src/Image/king/idle.png'
         })
-       
+       this.#CollisionBlocks = config.collisionBlock
     }
 
     get Position(){
@@ -39,34 +40,81 @@ class Player{
     }
 
     UPDATE(EventUpdate){
-    
-        if(EventUpdate.keySet.W.pressed && this.#Velocity.y === 0){
-            this.#Velocity.y = -10
+        this.ApplyMoveX()
+        this.CollisionCheckHorizontal()
+        this.ApplyGravity()
+        this.CollisionCheckVertical()
+        this.PlayerMove(EventUpdate.keySet)
+    }
+    ApplyMoveX(){
+        this.#Position.x += this.#Velocity.x
+    }
+    CollisionCheckHorizontal(){
+        for (let block = 0; block < this.#CollisionBlocks.length; block++) {
+            
+            const collisionBlock = this.#CollisionBlocks[block]
+
+            if(this.#Position.x <= collisionBlock.POSITION.x + collisionBlock.WIDTH &&
+               this.#Position.x + this.#Width >= collisionBlock.POSITION.x &&
+               this.#Position.y + this.#Height >=  collisionBlock.POSITION.y &&
+               this.#Position.y <=  collisionBlock.POSITION.y + collisionBlock.HEIGHT){
+                 //verify collision on X axis to left 
+                if(this.#Velocity.x < 0) {
+                    this.#Position.x = collisionBlock.POSITION.x + collisionBlock.WIDTH + 0.01
+                    break;
+                } 
+                if(this.#Velocity.x > 0) {
+                    this.#Position.x = collisionBlock.POSITION.x - this.#Width - 0.01
+                    break;
+                } 
+                
+            }
         }
-        if(EventUpdate.keySet.A.pressed){
+    }
+    ApplyGravity(){
+        this.#Velocity.y += this.#Gravity
+        this.#Position.y += this.#Velocity.y
+       // this.#Sides.bottom = this.#Position.y + this.#Height + this.#Velocity.y
+    }
+    CollisionCheckVertical(){
+        for (let block = 0; block < this.#CollisionBlocks.length; block++) {
+            
+            const collisionBlock = this.#CollisionBlocks[block]
+
+            if(this.#Position.x <= collisionBlock.POSITION.x + collisionBlock.WIDTH &&
+               this.#Position.x + this.#Width >= collisionBlock.POSITION.x &&
+               this.#Position.y + this.#Height >=  collisionBlock.POSITION.y &&
+               this.#Position.y <=  collisionBlock.POSITION.y + collisionBlock.HEIGHT){
+                 //verify collision on X axis to left 
+                if(this.#Velocity.y < 0) {
+                    this.#Velocity.y = 0
+                    this.#Position.y = collisionBlock.POSITION.y + collisionBlock.HEIGHT + 0.01
+                    break;
+                } 
+                if(this.#Velocity.y > 0) {
+                    this.#Velocity.y = 0
+                    this.#Position.y = collisionBlock.POSITION.y - this.#Height - 0.01
+                    break;
+                } 
+                
+            }
+        }
+    }
+   
+    PlayerMove(keySet){
+        if(keySet.W.pressed && this.#Velocity.y === 0){
+            this.#Velocity.y = -20
+        }
+        if(keySet.A.pressed){
             this.#Velocity.x = -4
         }
-        if(EventUpdate.keySet.D.pressed){
+        if(keySet.D.pressed){
             this.#Velocity.x = 4
         }
-        if(!EventUpdate.keySet.D.pressed && !EventUpdate.keySet.A.pressed){
+        if(!keySet.D.pressed && !keySet.A.pressed){
             this.#Velocity.x = 0
         }
-        this.#Position.y += this.#Velocity.y
-        this.#Position.x += this.#Velocity.x
-
-        this.#Sides.bottom = this.#Position.y + this.#Height + this.#Velocity.y
-       
-        if(this.#Sides.bottom + this.#Velocity.y < (64 * 9)){
-            this.#Velocity.y += this.#Gravity
-        }else {
-            this.#Velocity.y = 0
-        }
-
-
-       
     }
-    
     DRAW(EventDraw){
         EventDraw.fillStyle = 'red'
         EventDraw.fillRect(this.#Position.x,this.#Position.y,this.#Width,this.#Height)

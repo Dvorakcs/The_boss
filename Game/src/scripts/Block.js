@@ -7,7 +7,15 @@ class Block{
         this.#Width = config.width ?? 64
         this.#Height = config.height ?? 64
     }
-
+    get POSITION(){
+        return this.#Position
+    }
+    get WIDTH(){
+        return this.#Width
+    }
+    get HEIGHT(){
+        return this.#Height
+    }
     UPDATE(EventUpdate){
 
     }

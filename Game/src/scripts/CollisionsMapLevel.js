@@ -18,7 +18,10 @@ Array.prototype.parse2D = function (){
    return rows;
 }
 const collisionBlocks = []
+
 const parsedCollisions = mapLevelOne.parse2D();
+
+
 parsedCollisions.forEach((row,y) => {
    row.forEach((symbol,x) => {
       if(symbol == 292){
