@@ -24,7 +24,8 @@ class Player{
         this.#Height = config.height ?? 0
         this.#Sprite = new Sprite({
             position:this.#Position,
-            imageSrc:'/Game/src/Image/king/idle.png'
+            imageSrc:'/Game/src/Image/king/idle.png',
+            frameRate:11
         })
        this.#CollisionBlocks = config.collisionBlock
     }
@@ -40,11 +41,15 @@ class Player{
     }
 
     UPDATE(EventUpdate){
+
+        this.#Width = this.#Sprite.WIDTH
+        this.#Height = this.#Sprite.HEIGHT
         this.ApplyMoveX()
         this.CollisionCheckHorizontal()
         this.ApplyGravity()
         this.CollisionCheckVertical()
         this.PlayerMove(EventUpdate.keySet)
+        this.#Sprite.UPDATE(EventUpdate)
     }
     ApplyMoveX(){
         this.#Position.x += this.#Velocity.x
@@ -116,7 +121,6 @@ class Player{
         }
     }
     DRAW(EventDraw){
-        EventDraw.fillStyle = 'red'
         EventDraw.fillRect(this.#Position.x,this.#Position.y,this.#Width,this.#Height)
         this.#Sprite.DRAW(EventDraw)
     }
