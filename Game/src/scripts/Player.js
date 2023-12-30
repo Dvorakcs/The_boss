@@ -9,25 +9,27 @@ class Player{
     }
     #Width = 0;
     #Height = 0;
-    #Sides = {
-        bottom:this.#Position.y + this.#Height,
-        top:this.#Position.y,
-        left:this.#Position.x,
-        right:this.#Position.x + this.#Width
-    }
     #Gravity = 1
     #Sprite = null
     #CollisionBlocks = null
+    #HitBox = {
+        position:{
+            x:0,
+            y:0
+        },
+        width:50,
+        height:53
+    }
     constructor(config){
         this.#Position = config.position ?? {  x:0,y:0}
-        this.#Width = config.width ?? 0
-        this.#Height = config.height ?? 0
         this.#Sprite = new Sprite({
             position:this.#Position,
             imageSrc:'/Game/src/Image/king/idle.png',
             frameRate:11
         })
-       this.#CollisionBlocks = config.collisionBlock
+        this.#Width = this.#Sprite.WIDTH
+        this.#Height = this.#Sprite.HEIGHT
+        this.#CollisionBlocks = config.collisionBlock
     }
 
     get Position(){
@@ -41,15 +43,27 @@ class Player{
     }
 
     UPDATE(EventUpdate){
-
-        this.#Width = this.#Sprite.WIDTH
-        this.#Height = this.#Sprite.HEIGHT
+       
         this.ApplyMoveX()
+        this.UpdateHitBox()
         this.CollisionCheckHorizontal()
         this.ApplyGravity()
+        this.UpdateHitBox()
         this.CollisionCheckVertical()
         this.PlayerMove(EventUpdate.keySet)
         this.#Sprite.UPDATE(EventUpdate)
+        
+    }
+    UpdateHitBox(){
+        this.#HitBox.position = {
+            x:this.#Position.x + 58,
+            y:this.#Position.y + 34
+        }
+    }
+    ApplyGravity(){
+        this.#Velocity.y += this.#Gravity
+        this.#Position.y += this.#Velocity.y
+       // this.#Sides.bottom = this.#Position.y + this.#Height + this.#Velocity.y
     }
     ApplyMoveX(){
         this.#Position.x += this.#Velocity.x
@@ -59,53 +73,52 @@ class Player{
             
             const collisionBlock = this.#CollisionBlocks[block]
 
-            if(this.#Position.x <= collisionBlock.POSITION.x + collisionBlock.WIDTH &&
-               this.#Position.x + this.#Width >= collisionBlock.POSITION.x &&
-               this.#Position.y + this.#Height >=  collisionBlock.POSITION.y &&
-               this.#Position.y <=  collisionBlock.POSITION.y + collisionBlock.HEIGHT){
+            if(this.#HitBox.position.x <= collisionBlock.POSITION.x + collisionBlock.WIDTH &&
+               this.#HitBox.position.x + this.#HitBox.width >= collisionBlock.POSITION.x &&
+               this.#HitBox.position.y + this.#HitBox.height >=  collisionBlock.POSITION.y &&
+               this.#HitBox.position.y <=  collisionBlock.POSITION.y + collisionBlock.HEIGHT){
                  //verify collision on X axis to left 
-                if(this.#Velocity.x < 0) {
-                    this.#Position.x = collisionBlock.POSITION.x + collisionBlock.WIDTH + 0.01
+                if(this.#Velocity.x < -0) {
+                    const offset = this.#HitBox.position.x - this.#Position.x
+                    this.#Position.x = collisionBlock.POSITION.x + collisionBlock.WIDTH - offset + 0.01
                     break;
                 } 
                 if(this.#Velocity.x > 0) {
-                    this.#Position.x = collisionBlock.POSITION.x - this.#Width - 0.01
+                    const offset = this.#HitBox.position.x- this.#Position.x  + this.#HitBox.width
+                    this.#Position.x = collisionBlock.POSITION.x - offset - 0.01
                     break;
                 } 
                 
             }
         }
-    }
-    ApplyGravity(){
-        this.#Velocity.y += this.#Gravity
-        this.#Position.y += this.#Velocity.y
-       // this.#Sides.bottom = this.#Position.y + this.#Height + this.#Velocity.y
     }
     CollisionCheckVertical(){
         for (let block = 0; block < this.#CollisionBlocks.length; block++) {
             
             const collisionBlock = this.#CollisionBlocks[block]
 
-            if(this.#Position.x <= collisionBlock.POSITION.x + collisionBlock.WIDTH &&
-               this.#Position.x + this.#Width >= collisionBlock.POSITION.x &&
-               this.#Position.y + this.#Height >=  collisionBlock.POSITION.y &&
-               this.#Position.y <=  collisionBlock.POSITION.y + collisionBlock.HEIGHT){
+            if(this.#HitBox.position.x <= collisionBlock.POSITION.x + collisionBlock.WIDTH &&
+               this.#HitBox.position.x + this.#HitBox.width >= collisionBlock.POSITION.x &&
+               this.#HitBox.position.y + this.#HitBox.height >=  collisionBlock.POSITION.y &&
+               this.#HitBox.position.y <=  collisionBlock.POSITION.y + collisionBlock.HEIGHT){
                  //verify collision on X axis to left 
-                if(this.#Velocity.y < 0) {
+                if(this.#Velocity.y < -0) {
                     this.#Velocity.y = 0
-                    this.#Position.y = collisionBlock.POSITION.y + collisionBlock.HEIGHT + 0.01
+                    const offset = this.#HitBox.position.y - this.#Position.y
+                    this.#Position.y = 
+                    collisionBlock.POSITION.y + collisionBlock.HEIGHT - offset + 0.01
                     break;
                 } 
                 if(this.#Velocity.y > 0) {
                     this.#Velocity.y = 0
-                    this.#Position.y = collisionBlock.POSITION.y - this.#Height - 0.01
+                    const offset = this.#HitBox.position.y - this.#Position.y  + this.#HitBox.height
+                    this.#Position.y = collisionBlock.POSITION.y - offset - 0.01
                     break;
                 } 
                 
             }
         }
     }
-   
     PlayerMove(keySet){
         if(keySet.W.pressed && this.#Velocity.y === 0){
             this.#Velocity.y = -20
@@ -121,7 +134,7 @@ class Player{
         }
     }
     DRAW(EventDraw){
-        EventDraw.fillRect(this.#Position.x,this.#Position.y,this.#Width,this.#Height)
+       // EventDraw.fillRect(this.#HitBox.position.x,this.#HitBox.position.y,this.#HitBox.width,this.#HitBox.height)
         this.#Sprite.DRAW(EventDraw)
     }
 }

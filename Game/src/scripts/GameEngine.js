@@ -14,8 +14,6 @@ class GameEngine{
                 }),
                 player: new Player({
                     position:{  x:200,y:200},
-                    width:25,
-                    height:25,
                     collisionBlock:collisionBlocks
                 })
         })
