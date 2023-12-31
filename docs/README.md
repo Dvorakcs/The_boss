@@ -1,14 +1,12 @@
 
 
 
-# Mario_The-Boss
+# The-Boss
 ![GitHub repo size](https://img.shields.io/github/repo-size/Dvorakcs/Mario_The_boss?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/Dvorakcs/Mario_The_boss?style=for-the-badge)
 ![GitHub forks](https://img.shields.io/github/forks/Dvorakcs/Mario_The_boss?style=for-the-badge)
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/Dvorakcs/Mario_The_boss?style=for-the-badge)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/Dvorakcs/Mario_The_boss?style=for-the-badge)
-
-> Projeto simples: Jogo feito igual o Mario
 
 ### Ajustes e melhorias
 
