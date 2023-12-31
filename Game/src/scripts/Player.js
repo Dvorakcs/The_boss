@@ -25,11 +25,38 @@ class Player{
         this.#Sprite = new Sprite({
             position:this.#Position,
             imageSrc:'/Game/src/Image/king/idle.png',
-            frameRate:11
+            frameRate:11,
+            animations:{
+                idlerRight:{
+                    frameRate:11,
+                    frameBuffer:8,
+                    loop: true,
+                    imageSrc: '/Game/src/Image/king/idle.png'
+                },
+                idlerLeft:{
+                    frameRate:11,
+                    frameBuffer:8,
+                    loop: true,
+                    imageSrc: '/Game/src/Image/king/idleLeft.png'
+                },
+                runRight:{
+                    frameRate:8,
+                    frameBuffer:8,
+                    loop: true,
+                    imageSrc: '/Game/src/Image/king/runRight.png'
+                },
+                runLeft:{
+                    frameRate:8,
+                    frameBuffer:8,
+                    loop: true,
+                    imageSrc: '/Game/src/Image/king/runLeft.png'
+                }
+            }
         })
         this.#Width = this.#Sprite.WIDTH
         this.#Height = this.#Sprite.HEIGHT
         this.#CollisionBlocks = config.collisionBlock
+         
     }
 
     get Position(){
@@ -121,17 +148,29 @@ class Player{
     }
     PlayerMove(keySet){
         if(keySet.W.pressed && this.#Velocity.y === 0){
+           
             this.#Velocity.y = -20
         }
         if(keySet.A.pressed){
+            this.SwitchSprite('runLeft')
             this.#Velocity.x = -4
         }
         if(keySet.D.pressed){
+            this.SwitchSprite('runRight')
             this.#Velocity.x = 4
         }
         if(!keySet.D.pressed && !keySet.A.pressed){
+            if(this.#Velocity.x > 0)
+            this.SwitchSprite('idlerRight')
+            else if(this.#Velocity.x < 0)
+            this.SwitchSprite('idlerLeft')
+
             this.#Velocity.x = 0
         }
+    }
+    SwitchSprite(nameSprite){
+        this.#Sprite.UpdateAnimationsSprite = nameSprite
+        
     }
     DRAW(EventDraw){
        // EventDraw.fillRect(this.#HitBox.position.x,this.#HitBox.position.y,this.#HitBox.width,this.#HitBox.height)

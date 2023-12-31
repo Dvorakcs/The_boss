@@ -8,11 +8,21 @@ class Sprite{
     #CurrentFrame = 0
     #ElapsedFrames = 0
     #FrameBuffer = 6
+    #Animations = null
     constructor(config){
         this.#Position = config.position
         this.#Image = new Image()
         this.#Image.src = config.imageSrc ?? '' 
         this.#FrameRate = config.frameRate ?? 1
+        this.#Animations = config.animations
+        if(this.#Animations != null || this.#Animations != undefined){
+            for (let key in this.#Animations){
+                const image = new Image();
+                image.src = this.#Animations[key].imageSrc
+                this.#Animations[key].image = image
+            }
+            console.log(this.#Animations)
+        }
         this.#Image.onload = () => {
             this.#LoadedImage = true
             this.#Width = this.#Image.width / this.#FrameRate
@@ -26,6 +36,15 @@ class Sprite{
     }
     get HEIGHT(){
         return this.#Height
+    }
+    set UpdateAnimationsSprite(imageName){
+        if(this.#Animations != null || this.#Animations != undefined){
+            if(this.#Image === this.#Animations[imageName].image) return
+            this.#CurrentFrame = 0
+            this.#Image = this.#Animations[imageName].image
+            this.#FrameRate = this.#Animations[imageName].frameRate
+            this.#FrameBuffer = this.#Animations[imageName].frameBuffer
+        }
     }
     UPDATE(EventUpdate){
         this.#ElapsedFrames++
